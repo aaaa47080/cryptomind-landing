@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryptoMind — AI 驅動的加密分析 × TON 社群生態</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#0d0d0f;color:#f0ede8;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:#d4b693;text-decoration:none;transition:color .3s}
+a:hover{color:#e8d5b8}
+
+/* ===== UTILITY ===== */
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.section{padding:100px 0;position:relative}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;margin-bottom:16px;line-height:1.2}
+.section-subtitle{font-size:1.1rem;color:#8a8680;max-width:600px;margin-bottom:56px;font-weight:300}
+.gradient-text{background:linear-gradient(135deg,#d4b693,#f0dcc0,#d4b693);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tag{display:inline-block;padding:6px 14px;border:1px solid rgba(212,182,147,.3);border-radius:100px;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:#d4b693;margin-bottom:20px}
+
+/* ===== NOISE OVERLAY ===== */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;background:rgba(13,13,15,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,182,147,.08);display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:600;color:#f0ede8}
+.nav-logo span{color:#d4b693}
+.nav-links{display:flex;gap:32px;align-items:center;list-style:none}
+.nav-links a{font-size:.875rem;color:#8a8680;transition:color .3s}
+.nav-links a:hover{color:#f0ede8}
+.nav-cta{padding:8px 20px;background:linear-gradient(135deg,#d4b693,#b8956a);border-radius:8px;color:#0d0d0f!important;font-weight:600;font-size:.875rem;transition:transform .2s,box-shadow .3s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(212,182,147,.3)}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:80px}
+.hero::before{content:'';position:absolute;top:-50%;right:-30%;width:800px;height:800px;background:radial-gradient(circle,rgba(212,182,147,.06) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-30%;left:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(212,182,147,.04) 0%,transparent 70%);pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:720px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(212,182,147,.1);border:1px solid rgba(212,182,147,.2);border-radius:100px;font-size:.8rem;color:#d4b693;margin-bottom:32px}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;line-height:1.1;margin-bottom:24px}
+.hero h1 em{font-style:italic;color:#d4b693}
+.hero p{font-size:clamp(1rem,2vw,1.2rem);color:#8a8680;max-width:560px;margin-bottom:40px;line-height:1.8}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{padding:14px 32px;background:linear-gradient(135deg,#d4b693,#b8956a);border:none;border-radius:10px;color:#0d0d0f!important;font-weight:600;font-size:.95rem;cursor:pointer;transition:transform .2s,box-shadow .3s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,182,147,.25)}
+.btn-secondary{padding:14px 32px;background:transparent;border:1px solid rgba(212,182,147,.3);border-radius:10px;color:#f0ede8!important;font-weight:500;font-size:.95rem;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:8px}
+.btn-secondary:hover{border-color:#d4b693;background:rgba(212,182,147,.05)}
+
+/* ===== ABOUT / STORY ===== */
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+@media(max-width:768px){.story-grid{grid-template-columns:1fr;gap:40px}}
+.story-text .highlight{font-family:'Playfair Display',serif;font-size:1.6rem;line-height:1.5;margin-bottom:24px;font-weight:400}
+.story-text p{color:#8a8680;margin-bottom:16px}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.stat-item{text-align:center;padding:24px;background:rgba(255,255,255,.02);border-radius:12px;border:1px solid rgba(212,182,147,.08)}
+.stat-number{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#d4b693}
+.stat-label{font-size:.8rem;color:#8a8680;margin-top:4px}
+
+/* ===== FEATURES ===== */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.feature-card{background:rgba(255,255,255,.02);border:1px solid rgba(212,182,147,.08);border-radius:16px;padding:32px;transition:all .4s;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#d4b693,transparent);opacity:0;transition:opacity .4s}
+.feature-card:hover{background:rgba(255,255,255,.04);border-color:rgba(212,182,147,.2);transform:translateY(-4px)}
+.feature-card:hover::before{opacity:1}
+.feature-icon{width:48px;height:48px;border-radius:12px;background:rgba(212,182,147,.1);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:20px}
+.feature-card h3{font-size:1.15rem;font-weight:600;margin-bottom:10px}
+.feature-card p{font-size:.9rem;color:#8a8680;line-height:1.7}
+.feature-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.feature-tags span{padding:3px 10px;background:rgba(212,182,147,.06);border-radius:100px;font-size:.72rem;color:#b8956a}
+
+/* ===== TON SECTION ===== */
+.ton-section{background:linear-gradient(180deg,#0d0d0f 0%,rgba(212,182,147,.03) 50%,#0d0d0f 100%);border-top:1px solid rgba(212,182,147,.08);border-bottom:1px solid rgba(212,182,147,.08)}
+.ton-visual{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+@media(max-width:768px){.ton-visual{grid-template-columns:1fr;gap:40px}}
+.ton-flow{display:flex;flex-direction:column;gap:16px}
+.ton-step{display:flex;align-items:flex-start;gap:16px;padding:16px;background:rgba(255,255,255,.02);border-radius:12px;border:1px solid rgba(212,182,147,.06)}
+.ton-step-num{width:32px;height:32px;border-radius:50%;background:rgba(212,182,147,.15);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:600;color:#d4b693;flex-shrink:0}
+.ton-step h4{font-size:.95rem;font-weight:600;margin-bottom:4px}
+.ton-step p{font-size:.85rem;color:#8a8680}
+.ton-prices{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:24px}
+.ton-price-card{padding:20px;background:rgba(255,255,255,.02);border-radius:12px;border:1px solid rgba(212,182,147,.08);text-align:center}
+.ton-price-card .amount{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:#d4b693}
+.ton-price-card .label{font-size:.85rem;color:#8a8680;margin-top:4px}
+
+/* ===== PRICING ===== */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:900px;margin:0 auto}
+.pricing-card{background:rgba(255,255,255,.02);border:1px solid rgba(212,182,147,.08);border-radius:20px;padding:40px 32px;text-align:center;transition:all .4s;position:relative}
+.pricing-card:hover{transform:translateY(-4px);border-color:rgba(212,182,147,.2)}
+.pricing-card.featured{background:linear-gradient(180deg,rgba(212,182,147,.08),rgba(255,255,255,.02));border-color:rgba(212,182,147,.25)}
+.pricing-card.featured::after{content:'BEST VALUE';position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:4px 16px;background:linear-gradient(135deg,#d4b693,#b8956a);border-radius:100px;font-size:.7rem;font-weight:700;color:#0d0d0f;letter-spacing:.08em}
+.pricing-name{font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;color:#8a8680;margin-bottom:8px}
+.pricing-price{font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;color:#f0ede8;margin-bottom:4px}
+.pricing-price span{font-size:1rem;color:#8a8680;font-family:'Plus Jakarta Sans',sans-serif;font-weight:400}
+.pricing-period{font-size:.85rem;color:#8a8680;margin-bottom:32px}
+.pricing-features{list-style:none;text-align:left;margin-bottom:32px}
+.pricing-features li{padding:10px 0;font-size:.9rem;color:#c0bdb8;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.04)}
+.pricing-features li::before{content:'✓';color:#d4b693;font-weight:700}
+.pricing-features li.missing{color:#5a5650}
+.pricing-features li.missing::before{content:'✕';color:#5a5650}
+
+/* ===== ROADMAP ===== */
+.roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
+.roadmap-item{padding:24px;background:rgba(255,255,255,.02);border-radius:12px;border:1px solid rgba(212,182,147,.06);position:relative}
+.roadmap-item .phase{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:#d4b693;margin-bottom:8px}
+.roadmap-item h4{font-size:1rem;font-weight:600;margin-bottom:8px}
+.roadmap-item p{font-size:.85rem;color:#8a8680}
+.roadmap-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px}
+.roadmap-dot.done{background:#4ade80}
+.roadmap-dot.current{background:#d4b693;animation:pulse 2s infinite}
+.roadmap-dot.next{background:#5a5650}
+
+/* ===== SUPPORT ===== */
+.support-section{background:linear-gradient(180deg,#0d0d0f 0%,rgba(212,182,147,.04) 100%)}
+.donation-box{max-width:600px;margin:0 auto;background:rgba(255,255,255,.02);border:1px solid rgba(212,182,147,.12);border-radius:20px;padding:40px}
+.donation-box h3{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:16px;text-align:center}
+.donation-box p{text-align:center;color:#8a8680;margin-bottom:32px;font-size:.9rem}
+.wallet-group{margin-bottom:20px}
+.wallet-group label{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:#d4b693;margin-bottom:8px;font-weight:600}
+.wallet-address{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(0,0,0,.3);border:1px solid rgba(212,182,147,.1);border-radius:10px;font-family:'Courier New',monospace;font-size:.8rem;color:#c0bdb8;word-break:break-all;cursor:pointer;transition:border-color .3s}
+.wallet-address:hover{border-color:rgba(212,182,147,.3)}
+.wallet-address .copy-btn{flex-shrink:0;padding:6px 12px;background:rgba(212,182,147,.12);border:none;border-radius:6px;color:#d4b693;font-size:.75rem;cursor:pointer;transition:background .3s}
+.wallet-address .copy-btn:hover{background:rgba(212,182,147,.25)}
+.wallet-note{font-size:.8rem;color:#5a5650;margin-top:4px}
+.ton-donation-link{display:block;text-align:center;margin-top:24px;padding:16px;background:rgba(212,182,147,.08);border:1px solid rgba(212,182,147,.15);border-radius:12px;color:#d4b693;font-weight:500;transition:all .3s}
+.ton-donation-link:hover{background:rgba(212,182,147,.15);color:#f0dcc0}
+
+/* ===== FOOTER ===== */
+footer{text-align:center;padding:40px 24px;border-top:1px solid rgba(212,182,147,.06);color:#5a5650;font-size:.85rem}
+footer a{color:#8a8680}
+footer a:hover{color:#d4b693}
+.footer-links{display:flex;justify-content:center;gap:24px;margin-bottom:16px;flex-wrap:wrap}
+
+/* ===== ANIMATIONS ===== */
+.animate{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.animate.visible{opacity:1;transform:translateY(0)}
+.animate-delay-1{transition-delay:.1s}
+.animate-delay-2{transition-delay:.2s}
+.animate-delay-3{transition-delay:.3s}
+.animate-delay-4{transition-delay:.4s}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hero{padding-top:100px}
+  .stats-row{grid-template-columns:1fr}
+  .ton-prices{grid-template-columns:1fr}
+  .section{padding:60px 0}
+}
+
+@media(max-width:480px){
+  .hero-actions{flex-direction:column}
+  .btn-primary,.btn-secondary{width:100%;justify-content:center}
+  .features-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="nav-logo">Crypto<span>Mind</span></div>
+  <ul class="nav-links">
+    <li><a href="#story">關於</a></li>
+    <li><a href="#features">功能</a></li>
+    <li><a href="#ton">TON</a></li>
+    <li><a href="#pricing">方案</a></li>
+    <li><a href="#support">支持</a></li>
+    <li><a href="https://cryptomind-ton.zeabur.app" class="nav-cta" target="_blank">開啟 App →</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      已部署上線 · TON Connect 整合
+    </div>
+    <h1>
+      AI 驅動的分析<br>
+      <em>×</em> TON 社群生態
+    </h1>
+    <p>
+      CryptoMind 結合 LangGraph 多智能體 AI 分析、即時市場數據、<br>
+      和 PTT 風格社群論壇 — 全部透過 TON 區塊鏈串聯。
+    </p>
+    <div class="hero-actions">
+      <a href="https://cryptomind-ton.zeabur.app" class="btn-primary" target="_blank">
+        開啟 CryptoMind →
+      </a>
+      <a href="#features" class="btn-secondary">了解更多</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STORY ===== -->
+<section class="section" id="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-text animate">
+        <div class="tag">Our Story</div>
+        <h2 class="section-title">從 Pi 到 TON —<br>一次被迫的 pivot，<br>一個更好的選擇</h2>
+        <p class="highlight">「我們原本在 Pi Network 上建了一個完整的平台。審核一直不過。於是我們做了唯一的選擇：全部砍掉重練，0-to-1 遷移到 TON。」</p>
+        <p>四個人，三個月，從 Pi SDK 全面換成 TON Connect，從 Pi 付款換成鏈上 TON 驗證。認證、付款、訂閱、打賞 — 全部重寫。結果是 CryptoMind 成為了 TON 生態上少數同時具備 AI 分析和社群功能的 Web DApp。</p>
+        <p>我們是獨立開發團隊，沒有任何機構資助。這是一個由開發者為開發者、交易者為交易者打造的平台。</p>
+      </div>
+      <div class="animate animate-delay-2">
+        <div class="stats-row" style="margin-top:0">
+          <div class="stat-item">
+            <div class="stat-number">4</div>
+            <div class="stat-label">團隊人數</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">49+</div>
+            <div class="stat-label">API 路由</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">136+</div>
+            <div class="stat-label">自動化測試</div>
+          </div>
+        </div>
+        <div class="stats-row" style="margin-top:16px;grid-template-columns:repeat(2,1fr)">
+          <div class="stat-item">
+            <div class="stat-number">9</div>
+            <div class="stat-label">市場覆蓋</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">23+</div>
+            <div class="stat-label">AI 分析工具</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="section" id="features" style="background:rgba(212,182,147,.01);border-top:1px solid rgba(212,182,147,.06);border-bottom:1px solid rgba(212,182,147,.06)">
+  <div class="container">
+    <div class="tag animate">Features</div>
+    <h2 class="section-title animate">完整功能生態</h2>
+    <p class="section-subtitle animate">從 AI 分析到社群互動，從即時數據到區塊鏈支付，一體化整合</p>
+    <div class="features-grid">
+
+      <div class="feature-card animate animate-delay-1">
+        <div class="feature-icon">🧠</div>
+        <h3>AI Agent V4 分析系統</h3>
+        <p>Manager Agent 調度 8 個子智能體，涵蓋加密貨幣、美股、台股、日股、韓股、印度股、大宗商品、外匯。Human-in-the-Loop 互動執行。</p>
+        <div class="feature-tags">
+          <span>LangGraph</span><span>Multi-Agent</span><span>HitL</span>
+        </div>
+      </div>
+
+      <div class="feature-card animate animate-delay-1">
+        <div class="feature-icon">📊</div>
+        <h3>9 大市場即時數據</h3>
+        <p>加密貨幣（OKX + Binance）、美股、台股、港股、A 股、日股、韓股、印度股、外匯、大宗商品。即時 WebSocket K 線 + TradingView 圖表。</p>
+        <div class="feature-tags">
+          <span>WebSocket</span><span>SSE</span><span>即時圖表</span>
+        </div>
+      </div>
+
+      <div class="feature-card animate animate-delay-2">
+        <div class="feature-icon">💬</div>
+        <h3>PTT 風格社群論壇</h3>
+        <p>三大討論板塊、標籤系統、推噓評價、TON 打賞。免費仔發文需 0.1 TON，PRO 會員無限發表。</p>
+        <div class="feature-tags">
+          <span>TON 打賞</span><span>聲譽系統</span>
+        </div>
+      </div>
+
+      <div class="feature-card animate animate-delay-2">
+        <div class="feature-icon">👥</div>
+        <h3>社交生態</h3>
+        <p>好友系統、即時私訊（WebSocket，PRO 限定）、通知中心、關注清單。完整的社群互動體驗。</p>
+        <div class="feature-tags">
+          <span>即時聊天</span><span>好友系統</span>
+        </div>
+      </div>
+
+      <div class="feature-card animate animate-delay-3">
+        <div class="feature-icon">🔗</div>
+        <h3>TON 區塊鏈整合</h3>
+        <p>TON Connect 錢包登入、鏈上付款驗證、訂閱 PRO / 打賞 / 發文全部透過 TON。零傳統金流。</p>
+        <div class="feature-tags">
+          <span>TON Connect</span><span>鏈上驗證</span>
+        </div>
+      </div>
+
+      <div class="feature-card animate animate-delay-3">
+        <div class="feature-icon">🔒</div>
+        <h3>管理與安全</h3>
+        <p>管理後台、內容審核、Scam Tracker 社群回報、治理投票、完整審計日誌。生產環境安全檢查。</p>
+        <div class="feature-tags">
+          <span>審計日誌</span><span>Scam Tracker</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== TON INTEGRATION ===== -->
+<section class="section ton-section" id="ton">
+  <div class="container">
+    <div class="tag animate">TON Blockchain</div>
+    <h2 class="section-title animate">100% Web3 — 全部透過 TON</h2>
+    <p class="section-subtitle animate">從登入到付款，從訂閱到打賞，每一筆交易都在鏈上可驗證</p>
+    <div class="ton-visual">
+      <div class="animate">
+        <div class="ton-flow">
+          <div class="ton-step">
+            <div class="ton-step-num">1</div>
+            <div>
+              <h4>TON Connect 錢包登入</h4>
+              <p>Tonkeeper / MyTonWallet 一鍵授權，ed25519 簽章驗證，15 分鐘 nonce 過期保護</p>
+            </div>
+          </div>
+          <div class="ton-step">
+            <div class="ton-step-num">2</div>
+            <div>
+              <h4>鏈上付款訂單</h4>
+              <p>後端生成唯一 comment 綁定訂單，錢包發送 TON 到收款地址，toncenter API 掃鏈確認</p>
+            </div>
+          </div>
+          <div class="ton-step">
+            <div class="ton-step-num">3</div>
+            <div>
+              <h4>即時開通權限</h4>
+              <p>付款確認後自動升級會員 / 發布文章 / 完成打賞，防重複支付機制保障安全</p>
+            </div>
+          </div>
+        </div>
+        <div class="ton-prices">
+          <div class="ton-price-card">
+            <div class="amount">0.3 TON</div>
+            <div class="label">PRO 月費</div>
+          </div>
+          <div class="ton-price-card">
+            <div class="amount">0.1 TON</div>
+            <div class="label">發文（免費仔）/ 打賞</div>
+          </div>
+        </div>
+      </div>
+      <div class="animate animate-delay-2">
+        <div style="background:rgba(212,182,147,.03);border:1px solid rgba(212,182,147,.1);border-radius:20px;padding:32px">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:20px">為什麼選 TON？</h3>
+          <ul style="list-style:none">
+            <li style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:12px">
+              <span style="color:#d4b693;font-weight:700">→</span>
+              <span><strong>8 億 +</strong> Telegram 用戶，距離錢包只有一鍵之遙</span>
+            </li>
+            <li style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:12px">
+              <span style="color:#d4b693;font-weight:700">→</span>
+              <span>手續費遠低於傳統金融，小額支付可行（0.1 TON 打賞）</span>
+            </li>
+            <li style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:12px">
+              <span style="color:#d4b693;font-weight:700">→</span>
+              <span>TON 生態缺乏實用的金融 DApp，市場藍海</span>
+            </li>
+            <li style="padding:12px 0;display:flex;gap:12px">
+              <span style="color:#d4b693;font-weight:700">→</span>
+              <span>TON Connect SDK 成熟，開發體驗流暢</span>
+            </li>
+          </ul>
+          <div style="margin-top:24px;padding:16px;background:rgba(212,182,147,.06);border-radius:10px;font-size:.85rem;color:#8a8680;text-align:center">
+            ⚡ 已部署於 Zeabur · 測試網驗證完成 · 隨時可切 Mainnet
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="tag animate">Pricing</div>
+    <h2 class="section-title animate" style="text-align:center">選擇你的方案</h2>
+    <p class="section-subtitle animate" style="text-align:center;margin-left:auto;margin-right:auto">所有付款均透過 TON 鏈上完成，不需傳統信用卡</p>
+    <div class="pricing-grid">
+      <div class="pricing-card animate animate-delay-1">
+        <div class="pricing-name">Free</div>
+        <div class="pricing-price">0 <span>TON</span></div>
+        <div class="pricing-period">永久免費</div>
+        <ul class="pricing-features">
+          <li>閱讀所有文章</li>
+          <li>觀看 AI 分析報告</li>
+          <li>每日 3 篇發文（0.1 TON/篇）</li>
+          <li>每日 20 則評論</li>
+          <li>TON 打賞作者</li>
+          <li class="missing">私人訊息</li>
+          <li class="missing">AI 長期記憶</li>
+        </ul>
+        <a href="https://cryptomind-ton.zeabur.app" class="btn-secondary" style="width:100%;justify-content:center" target="_blank">免費開始</a>
+      </div>
+
+      <div class="pricing-card featured animate animate-delay-2">
+        <div class="pricing-name">PRO Monthly</div>
+        <div class="pricing-price">0.3 <span>TON</span></div>
+        <div class="pricing-period">每月 / 約 $0.9 USD</div>
+        <ul class="pricing-features">
+          <li>無限發文 & 評論</li>
+          <li>高級 AI 分析工具</li>
+          <li>AI 長期記憶</li>
+          <li>私人即時訊息</li>
+          <li>自訂 System Prompt</li>
+          <li>PRO 身份徽章</li>
+          <li>搶先體驗新功能</li>
+        </ul>
+        <a href="https://cryptomind-ton.zeabur.app" class="btn-primary" style="width:100%;justify-content:center" target="_blank">訂閱 PRO</a>
+      </div>
+
+      <div class="pricing-card animate animate-delay-3">
+        <div class="pricing-name">PRO Yearly</div>
+        <div class="pricing-price">3.0 <span>TON</span></div>
+        <div class="pricing-period">每年 / 約 $9 USD（省 2 個月）</div>
+        <ul class="pricing-features">
+          <li>所有 PRO 月費權益</li>
+          <li>年費約等於 10 個月價格</li>
+          <li>相當於免費獲得 2 個月</li>
+          <li>優先技術支援</li>
+        </ul>
+        <a href="https://cryptomind-ton.zeabur.app" class="btn-secondary" style="width:100%;justify-content:center" target="_blank">訂閱年費</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ROADMAP ===== -->
+<section class="section" style="background:rgba(212,182,147,.01);border-top:1px solid rgba(212,182,147,.06);border-bottom:1px solid rgba(212,182,147,.06)">
+  <div class="container">
+    <div class="tag animate">Roadmap</div>
+    <h2 class="section-title animate">下一步規劃</h2>
+    <p class="section-subtitle animate">從 MVP 到生態系，我們的階段性目標</p>
+    <div class="roadmap">
+      <div class="roadmap-item animate animate-delay-1">
+        <span class="roadmap-dot done"></span><span class="phase">Phase 1 ✅ 已完成</span>
+        <h4>TON 遷移 & MVP 上線</h4>
+        <p>Pi → TON 完整遷移，TON Connect 登入 + 付款，PRO 訂閱、論壇、AI 分析核心功能上線</p>
+      </div>
+      <div class="roadmap-item animate animate-delay-2">
+        <span class="roadmap-dot current"></span><span class="phase">Phase 2 🔄 進行中</span>
+        <h4>Mainnet 切換 & 用戶增長</h4>
+        <p>切換 TON Mainnet，優化效能，用戶 onboarding 流程，社群建立</p>
+      </div>
+      <div class="roadmap-item animate animate-delay-3">
+        <span class="roadmap-dot next"></span><span class="phase">Phase 3 📋 規劃中</span>
+        <h4>付費專欄 & AI API</h4>
+        <p>開放付費分析專欄、第三方 AI API 接入、Telegram Mini App 整合</p>
+      </div>
+      <div class="roadmap-item animate animate-delay-4">
+        <span class="roadmap-dot next"></span><span class="phase">Phase 4 📋 規劃中</span>
+        <h4>社群治理 & 生態擴張</h4>
+        <p>DAO 治理、更多市場覆蓋、行動端 App、跨鏈整合</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SUPPORT ===== -->
+<section class="section support-section" id="support">
+  <div class="container">
+    <div class="tag animate">Support Us</div>
+    <h2 class="section-title animate" style="text-align:center">支持 CryptoMind</h2>
+    <p class="section-subtitle animate" style="text-align:center;margin-left:auto;margin-right:auto">
+      我們是獨立開發團隊，您的每一份支持都直接投入伺服器維運和功能開發。
+      如果您喜歡這個項目，歡迎透過以下方式支持：
+    </p>
+    <div class="donation-box animate">
+      <h3>☕ 請我們喝杯咖啡</h3>
+      <p>捐款不是義務，但每一份心意都能讓我們走得更遠。</p>
+
+      <div class="wallet-group">
+        <label>📱 TON / TON USDT（推薦）</label>
+        <div class="wallet-address" onclick="copyAddress(this)">
+          <span>UQDvjDhEZ128EktbSBrK4CWrw1xTTbx4ojlZ-rF2OOS2H6Db</span>
+          <button class="copy-btn" onclick="event.stopPropagation();copyAddress(this.parentElement)">複製</button>
+        </div>
+        <div class="wallet-note">透過 Tonkeeper 直接發送 TON 或 USDT（TON 主網）</div>
+      </div>
+
+      <div class="wallet-group">
+        <label>💳 USDT（TRC-20）</label>
+        <div class="wallet-address" onclick="copyAddress(this)">
+          <span>TKfFita2A9DkuhvpioDFJ7KcML2X2nA66f</span>
+          <button class="copy-btn" onclick="event.stopPropagation();copyAddress(this.parentElement)">複製</button>
+        </div>
+        <div class="wallet-note">TRON 網絡 USDT</div>
+      </div>
+
+      <a href="https://app.tonkeeper.com/donate/?amounts[]=1&amounts[]=5&amounts[]=10&amounts[]=50&text=Support%20CryptoMind" class="ton-donation-link" target="_blank">
+        ⚡ 一鍵 TON 捐款（Tonkeeper）
+      </a>
+
+      <div style="margin-top:24px;padding:16px;background:rgba(212,182,147,.04);border-radius:10px;text-align:center;font-size:.85rem;color:#8a8680">
+        💎 或直接訂閱 <a href="https://cryptomind-ton.zeabur.app" style="color:#d4b693">PRO 會員</a>，獲得完整功能同時支持我們
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-links">
+    <a href="https://cryptomind-ton.zeabur.app" target="_blank">開啟 App</a>
+    <a href="https://github.com/aaaa47080/stock_agent" target="_blank">GitHub</a>
+    <a href="#story">關於</a>
+    <a href="#features">功能</a>
+    <a href="#pricing">方案</a>
+    <a href="#support">支持</a>
+  </div>
+  <p>© 2026 CryptoMind · 獨立開發，不屬於任何機構</p>
+  <p style="margin-top:8px;font-size:.75rem">Made with ❤️ by a team of 4 independent developers</p>
+</footer>
+
+<script>
+// Copy address function
+function copyAddress(el) {
+  const address = el.querySelector('span').textContent.trim();
+  navigator.clipboard.writeText(address).then(() => {
+    const btn = el.querySelector('.copy-btn');
+    const orig = btn.textContent;
+    btn.textContent = '✓ 已複製';
+    btn.style.background = 'rgba(74,222,128,.2)';
+    btn.style.color = '#4ade80';
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 2000);
+  });
+}
+
+// Scroll animation observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
