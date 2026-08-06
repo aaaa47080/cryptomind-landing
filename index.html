@@ -94,6 +94,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;background
 .demo-card p{font-size:.85rem;color:#8b95a8;line-height:1.6}
 .demo-query{display:inline-block;margin-top:10px;padding:4px 12px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#00d4ff}
 
+/* ===== TEAM ===== */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.team-card{background:rgba(255,255,255,.02);border:1px solid rgba(0,152,234,.1);border-radius:16px;padding:32px 28px;text-align:center;transition:all .4s;position:relative;overflow:hidden}
+.team-card:hover{background:rgba(0,152,234,.05);border-color:rgba(0,152,234,.3);transform:translateY(-4px)}
+.team-avatar{width:88px;height:88px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:2rem;font-weight:700;color:#fff;background:linear-gradient(135deg,#0098EA,#00d4ff);box-shadow:0 8px 24px rgba(0,152,234,.3)}
+.team-card h3{font-family:'Sora',sans-serif;font-size:1.15rem;font-weight:600;margin-bottom:4px;letter-spacing:-.01em}
+.team-role{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#00d4ff;margin-bottom:12px;font-weight:600}
+.team-card p{font-size:.88rem;color:#8b95a8;line-height:1.7;margin-bottom:16px}
+.team-links{display:flex;justify-content:center;gap:12px}
+.team-links a{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;color:#8b95a8;padding:6px 14px;border:1px solid rgba(0,152,234,.2);border-radius:100px;transition:all .3s}
+.team-links a:hover{color:#00d4ff;border-color:#00d4ff;background:rgba(0,212,255,.06)}
+
 /* ===== TON SECTION ===== */
 .ton-section{background:linear-gradient(180deg,#0a0e1a 0%,rgba(0,152,234,.04) 50%,#0a0e1a 100%);border-top:1px solid rgba(0,152,234,.1);border-bottom:1px solid rgba(0,152,234,.1)}
 .ton-visual{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
@@ -190,6 +202,7 @@ footer a:hover{color:#0098EA}
     <li><a href="#features" data-i18n="功能">功能</a></li>
     <li><a href="#demo">Demo</a></li>
     <li><a href="#ton">TON</a></li>
+    <li><a href="#team" data-i18n="團隊">團隊</a></li>
     <li><a href="#pricing" data-i18n="方案">方案</a></li>
     <li><a href="#support" data-i18n="支持">支持</a></li>
     <li><a href="https://cryptomind-ton.zeabur.app" class="nav-cta" target="_blank" data-i18n="開啟 App →">開啟 App →</a></li>
@@ -239,8 +252,8 @@ footer a:hover{color:#0098EA}
     <div class="story-grid">
       <div class="story-text animate">
         <div class="tag">Our Story</div>
-        <h2 class="section-title" data-i18n="story.title">從 Pi 到 TON —<br>一次被迫的 pivot，<br>一個更好的選擇</h2>
-        <p class="highlight" data-i18n="「我們原本在 Pi Network 上建了一個完整的平台。審核一直不過。於是我們做了唯一的選擇：全部砍掉重練，0-to-1 遷移到 TON。」">「我們原本在 Pi Network 上建了一個完整的平台。審核一直不過。於是我們做了唯一的選擇：全部砍掉重練，0-to-1 遷移到 TON。」</p>
+        <h2 class="section-title" data-i18n="story.title">從 Pi 到 TON —<br>一次深思的遷移，<br>一個更好的選擇</h2>
+        <p class="highlight" data-i18n="我們最初在 Pi Network 上打造了完整的平台，並在產品發展過程中持續探索最適合的生態。如今，CryptoMind 以 TON 為核心，從零開始 0-to-1 重新打造——專注於 AI 分析與社群體驗。">我們最初在 Pi Network 上打造了完整的平台，並在產品發展過程中持續探索最適合的生態。如今，CryptoMind 以 TON 為核心，從零開始 0-to-1 重新打造——專注於 AI 分析與社群體驗。</p>
         <p data-i18n="四個人，三個月，從 Pi SDK 全面換成 TON Connect，從 Pi 付款換成鏈上 TON 驗證。認證、付款、訂閱、打賞 — 全部重寫。結果是 CryptoMind 成為了 TON 生態上少數同時具備 AI 分析和社群功能的 Web DApp。">四個人，三個月，從 Pi SDK 全面換成 TON Connect，從 Pi 付款換成鏈上 TON 驗證。認證、付款、訂閱、打賞 — 全部重寫。結果是 CryptoMind 成為了 TON 生態上少數同時具備 AI 分析和社群功能的 Web DApp。</p>
         <p data-i18n="我們是獨立開發團隊，沒有任何機構資助。這是一個由開發者為開發者、交易者為交易者打造的平台。">我們是獨立開發團隊，沒有任何機構資助。這是一個由開發者為開發者、交易者為交易者打造的平台。</p>
       </div>
@@ -450,6 +463,48 @@ footer a:hover{color:#0098EA}
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEAM ===== -->
+<section class="section" id="team" style="background:rgba(0,152,234,.015);border-top:1px solid rgba(0,152,234,.08);border-bottom:1px solid rgba(0,152,234,.08)">
+  <div class="container">
+    <div class="tag animate">Team</div>
+    <h2 class="section-title animate" data-i18n="team.title">獨立開發團隊</h2>
+    <p class="section-subtitle animate" data-i18n="team.subtitle">從架構到數據，從後端到生態——CryptoMind 由獨立開發者親手打造</p>
+    <div class="team-grid">
+
+      <div class="team-card animate animate-delay-1">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#0098EA,#00d4ff)">D</div>
+        <h3 data-i18n="team.danny.name">陳鈺澔 Danny</h3>
+        <div class="team-role" data-i18n="team.danny.role">LLM &amp; AI-Agent Architect</div>
+        <p data-i18n="team.danny.bio">LLM 應用架構、AI Agent 工作流設計、信任層架構、Prompt Engineering</p>
+        <div class="team-links">
+          <a href="https://www.linkedin.com/in/%E9%88%BA%E6%BE%94-%E9%99%B3-128466197/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+
+      <div class="team-card animate animate-delay-2">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#00d4ff,#4ade80)">賴</div>
+        <h3 data-i18n="team.hungyu.name">賴弘育 Hung-Yu Lai</h3>
+        <div class="team-role" data-i18n="team.hungyu.role">Intelligent Data Retrieval</div>
+        <p data-i18n="team.hungyu.bio">金融數據爬蟲、資料清洗、即時資訊流、多市場行情整合</p>
+        <div class="team-links">
+          <a href="https://www.linkedin.com/in/%E5%BC%98%E8%82%B2-%E8%B3%B4-962355424/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+
+      <div class="team-card animate animate-delay-3">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#4ade80,#0098EA)">施</div>
+        <h3 data-i18n="team.shih.name">施柏均 Po-Chun Shih</h3>
+        <div class="team-role" data-i18n="team.shih.role">Backend &amp; Infra Engineer</div>
+        <p data-i18n="team.shih.bio">高併發後端架構、資料庫優化、Docker 容器化、雲端部署</p>
+        <div class="team-links">
+          <a href="https://www.linkedin.com/in/%E6%9F%8F%E5%9D%87-%E6%96%BD-a37446306/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
