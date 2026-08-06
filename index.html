@@ -53,6 +53,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;background
 .btn-secondary{padding:14px 32px;background:transparent;border:1px solid rgba(0,152,234,.3);border-radius:10px;color:#eef2f8!important;font-weight:500;font-size:.95rem;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:8px}
 .btn-secondary:hover{border-color:#0098EA;background:rgba(0,152,234,.08)}
 
+/* ===== LANGUAGE SWITCHER ===== */
+.lang-switcher{position:relative;display:inline-block}
+.lang-btn{background:transparent;border:1px solid rgba(0,152,234,.25);color:#8b95a8;border-radius:8px;padding:8px 12px;font-size:.85rem;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .3s;font-family:'Plus Jakarta Sans',sans-serif}
+.lang-btn:hover{border-color:#0098EA;color:#eef2f8}
+.lang-menu{display:none;position:absolute;top:calc(100% + 8px);right:0;background:#0d1322;border:1px solid rgba(0,152,234,.2);border-radius:12px;overflow:hidden;min-width:140px;box-shadow:0 12px 40px rgba(0,0,0,.5);z-index:200}
+.lang-menu.open{display:block}
+.lang-menu button{display:block;width:100%;padding:10px 16px;background:transparent;border:none;color:#8b95a8;font-size:.85rem;text-align:left;cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif}
+.lang-menu button:hover{background:rgba(0,152,234,.1);color:#eef2f8}
+.lang-menu button.active{color:#0098EA;font-weight:600}
+
 /* ===== ABOUT / STORY ===== */
 .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 @media(max-width:768px){.story-grid{grid-template-columns:1fr;gap:40px}}
@@ -176,13 +186,26 @@ footer a:hover{color:#0098EA}
 <nav>
   <div class="nav-logo">Crypto<span>Mind</span></div>
   <ul class="nav-links">
-    <li><a href="#story">關於</a></li>
-    <li><a href="#features">功能</a></li>
+    <li><a href="#story" data-i18n="關於">關於</a></li>
+    <li><a href="#features" data-i18n="功能">功能</a></li>
     <li><a href="#demo">Demo</a></li>
     <li><a href="#ton">TON</a></li>
-    <li><a href="#pricing">方案</a></li>
-    <li><a href="#support">支持</a></li>
-    <li><a href="https://cryptomind-ton.zeabur.app" class="nav-cta" target="_blank">開啟 App →</a></li>
+    <li><a href="#pricing" data-i18n="方案">方案</a></li>
+    <li><a href="#support" data-i18n="支持">支持</a></li>
+    <li><a href="https://cryptomind-ton.zeabur.app" class="nav-cta" target="_blank" data-i18n="開啟 App →">開啟 App →</a></li>
+    <li>
+      <div class="lang-switcher">
+        <button class="lang-btn" id="lang-btn" type="button" aria-label="Language">
+          <span id="lang-current">🌐</span>
+        </button>
+        <div class="lang-menu" id="lang-menu">
+          <button type="button" data-lang="zh-TW">繁體中文</button>
+          <button type="button" data-lang="en">English</button>
+          <button type="button" data-lang="zh-CN">简体中文</button>
+          <button type="button" data-lang="ru">Русский</button>
+        </div>
+      </div>
+    </li>
   </ul>
 </nav>
 
@@ -191,21 +214,21 @@ footer a:hover{color:#0098EA}
   <div class="container hero-content">
     <div class="hero-badge">
       <span class="hero-badge-dot"></span>
-      已部署上線 · TON Connect 整合
+      <span data-i18n="已部署上線 · TON Connect 整合">已部署上線 · TON Connect 整合</span>
     </div>
-    <h1>
+    <h1 data-i18n="hero.title">
       AI 驅動的分析<br>
       <em>×</em> TON 社群生態
     </h1>
-    <p>
+    <p data-i18n="hero.subtitle">
       CryptoMind 結合 LangGraph 多智能體 AI 分析、即時市場數據、<br>
       和 PTT 風格社群論壇 — 全部透過 TON 區塊鏈串聯。
     </p>
     <div class="hero-actions">
-      <a href="https://cryptomind-ton.zeabur.app" class="btn-primary" target="_blank">
+      <a href="https://cryptomind-ton.zeabur.app" class="btn-primary" target="_blank" data-i18n="開啟 CryptoMind →">
         開啟 CryptoMind →
       </a>
-      <a href="#features" class="btn-secondary">了解更多</a>
+      <a href="#features" class="btn-secondary" data-i18n="了解更多">了解更多</a>
     </div>
   </div>
 </section>
@@ -216,34 +239,34 @@ footer a:hover{color:#0098EA}
     <div class="story-grid">
       <div class="story-text animate">
         <div class="tag">Our Story</div>
-        <h2 class="section-title">從 Pi 到 TON —<br>一次被迫的 pivot，<br>一個更好的選擇</h2>
-        <p class="highlight">「我們原本在 Pi Network 上建了一個完整的平台。審核一直不過。於是我們做了唯一的選擇：全部砍掉重練，0-to-1 遷移到 TON。」</p>
-        <p>四個人，三個月，從 Pi SDK 全面換成 TON Connect，從 Pi 付款換成鏈上 TON 驗證。認證、付款、訂閱、打賞 — 全部重寫。結果是 CryptoMind 成為了 TON 生態上少數同時具備 AI 分析和社群功能的 Web DApp。</p>
-        <p>我們是獨立開發團隊，沒有任何機構資助。這是一個由開發者為開發者、交易者為交易者打造的平台。</p>
+        <h2 class="section-title" data-i18n="story.title">從 Pi 到 TON —<br>一次被迫的 pivot，<br>一個更好的選擇</h2>
+        <p class="highlight" data-i18n="「我們原本在 Pi Network 上建了一個完整的平台。審核一直不過。於是我們做了唯一的選擇：全部砍掉重練，0-to-1 遷移到 TON。」">「我們原本在 Pi Network 上建了一個完整的平台。審核一直不過。於是我們做了唯一的選擇：全部砍掉重練，0-to-1 遷移到 TON。」</p>
+        <p data-i18n="四個人，三個月，從 Pi SDK 全面換成 TON Connect，從 Pi 付款換成鏈上 TON 驗證。認證、付款、訂閱、打賞 — 全部重寫。結果是 CryptoMind 成為了 TON 生態上少數同時具備 AI 分析和社群功能的 Web DApp。">四個人，三個月，從 Pi SDK 全面換成 TON Connect，從 Pi 付款換成鏈上 TON 驗證。認證、付款、訂閱、打賞 — 全部重寫。結果是 CryptoMind 成為了 TON 生態上少數同時具備 AI 分析和社群功能的 Web DApp。</p>
+        <p data-i18n="我們是獨立開發團隊，沒有任何機構資助。這是一個由開發者為開發者、交易者為交易者打造的平台。">我們是獨立開發團隊，沒有任何機構資助。這是一個由開發者為開發者、交易者為交易者打造的平台。</p>
       </div>
       <div class="animate animate-delay-2">
         <div class="stats-row" style="margin-top:0">
           <div class="stat-item">
             <div class="stat-number">4</div>
-            <div class="stat-label">團隊人數</div>
+            <div class="stat-label" data-i18n="團隊人數">團隊人數</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">49+</div>
-            <div class="stat-label">API 路由</div>
+            <div class="stat-label" data-i18n="API 路由">API 路由</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">136+</div>
-            <div class="stat-label">自動化測試</div>
+            <div class="stat-label" data-i18n="自動化測試">自動化測試</div>
           </div>
         </div>
         <div class="stats-row" style="margin-top:16px;grid-template-columns:repeat(2,1fr)">
           <div class="stat-item">
             <div class="stat-number">3+</div>
-            <div class="stat-label">核心市場資料源</div>
+            <div class="stat-label" data-i18n="核心市場資料源">核心市場資料源</div>
           </div>
           <div class="stat-item">
             <div class="stat-number">7</div>
-            <div class="stat-label">LangChain AI 工具</div>
+            <div class="stat-label" data-i18n="LangChain AI 工具">LangChain AI 工具</div>
           </div>
         </div>
       </div>
@@ -255,14 +278,14 @@ footer a:hover{color:#0098EA}
 <section class="section" id="features" style="background:rgba(0,152,234,.015);border-top:1px solid rgba(0,152,234,.08);border-bottom:1px solid rgba(0,152,234,.08)">
   <div class="container">
     <div class="tag animate">Features</div>
-    <h2 class="section-title animate">完整功能生態</h2>
-    <p class="section-subtitle animate">從 AI 分析到社群互動，從即時數據到區塊鏈支付，一體化整合</p>
+    <h2 class="section-title animate" data-i18n="完整功能生態">完整功能生態</h2>
+    <p class="section-subtitle animate" data-i18n="從 AI 分析到社群互動，從即時數據到區塊鏈支付，一體化整合">從 AI 分析到社群互動，從即時數據到區塊鏈支付，一體化整合</p>
     <div class="features-grid">
 
       <div class="feature-card animate animate-delay-1">
         <div class="feature-icon">🧠</div>
-        <h3>AI Agent V4 分析系統</h3>
-        <p>Manager Agent 調度 8 個子智能體，涵蓋加密貨幣、美股、台股、日股、韓股、印度股、大宗商品、外匯。Human-in-the-Loop 互動執行。</p>
+        <h3 data-i18n="AI Agent V4 分析系統">AI Agent V4 分析系統</h3>
+        <p data-i18n="Manager Agent 調度 8 個子智能體，涵蓋加密貨幣、美股、台股、日股、韓股、印度股、大宗商品、外匯。Human-in-the-Loop 互動執行。">Manager Agent 調度 8 個子智能體，涵蓋加密貨幣、美股、台股、日股、韓股、印度股、大宗商品、外匯。Human-in-the-Loop 互動執行。</p>
         <div class="feature-tags">
           <span>LangGraph</span><span>Multi-Agent</span><span>HitL</span>
         </div>
@@ -270,46 +293,46 @@ footer a:hover{color:#0098EA}
 
       <div class="feature-card animate animate-delay-1">
         <div class="feature-icon">📊</div>
-        <h3>多市場數據覆蓋</h3>
-        <p>加密貨幣即時行情（OKX WebSocket）、台股（TWSE）、美股（Finnhub）為核心資料源。另有港 / 日 / 韓 / 印 / A 股、外匯、大宗商品透過 yfinance 補充。</p>
+        <h3 data-i18n="多市場數據覆蓋">多市場數據覆蓋</h3>
+        <p data-i18n="加密貨幣即時行情（OKX WebSocket）、台股（TWSE）、美股（Finnhub）為核心資料源。另有港 / 日 / 韓 / 印 / A 股、外匯、大宗商品透過 yfinance 補充。">加密貨幣即時行情（OKX WebSocket）、台股（TWSE）、美股（Finnhub）為核心資料源。另有港 / 日 / 韓 / 印 / A 股、外匯、大宗商品透過 yfinance 補充。</p>
         <div class="feature-tags">
-          <span>OKX WebSocket</span><span>即時 K 線</span><span>TradingView 圖表</span>
+          <span>OKX WebSocket</span><span data-i18n="即時 K 線">即時 K 線</span><span data-i18n="TradingView 圖表">TradingView 圖表</span>
         </div>
       </div>
 
       <div class="feature-card animate animate-delay-2">
         <div class="feature-icon">💬</div>
-        <h3>PTT 風格社群論壇</h3>
-        <p>三大討論板塊、標籤系統、推噓評價、TON 打賞。完整的社群互動體驗。</p>
+        <h3 data-i18n="PTT 風格社群論壇">PTT 風格社群論壇</h3>
+        <p data-i18n="三大討論板塊、標籤系統、推噓評價、TON 打賞。完整的社群互動體驗。">三大討論板塊、標籤系統、推噓評價、TON 打賞。完整的社群互動體驗。</p>
         <div class="feature-tags">
-          <span>TON 打賞</span><span>聲譽系統</span>
+          <span data-i18n="TON 打賞">TON 打賞</span><span data-i18n="聲譽系統">聲譽系統</span>
         </div>
       </div>
 
       <div class="feature-card animate animate-delay-2">
         <div class="feature-icon">👥</div>
-        <h3>社交生態</h3>
-        <p>好友系統、即時私訊（WebSocket，PRO 限定）、通知中心、關注清單。完整的社群互動體驗。</p>
+        <h3 data-i18n="社交生態">社交生態</h3>
+        <p data-i18n="好友系統、即時私訊（WebSocket，PRO 限定）、通知中心、關注清單。完整的社群互動體驗。">好友系統、即時私訊（WebSocket，PRO 限定）、通知中心、關注清單。完整的社群互動體驗。</p>
         <div class="feature-tags">
-          <span>即時聊天</span><span>好友系統</span>
+          <span data-i18n="即時聊天">即時聊天</span><span data-i18n="好友系統">好友系統</span>
         </div>
       </div>
 
       <div class="feature-card animate animate-delay-3">
         <div class="feature-icon">🔗</div>
-        <h3>TON 區塊鏈整合</h3>
-        <p>TON Connect 錢包登入、鏈上付款驗證、訂閱 PRO / 打賞全部透過 TON。零傳統金流。</p>
+        <h3 data-i18n="TON 區塊鏈整合">TON 區塊鏈整合</h3>
+        <p data-i18n="TON Connect 錢包登入、鏈上付款驗證、訂閱 PRO / 打賞全部透過 TON。零傳統金流。">TON Connect 錢包登入、鏈上付款驗證、訂閱 PRO / 打賞全部透過 TON。零傳統金流。</p>
         <div class="feature-tags">
-          <span>TON Connect</span><span>鏈上驗證</span>
+          <span>TON Connect</span><span data-i18n="鏈上驗證">鏈上驗證</span>
         </div>
       </div>
 
       <div class="feature-card animate animate-delay-3">
         <div class="feature-icon">🔒</div>
-        <h3>管理與安全</h3>
-        <p>管理後台、內容審核、Scam Tracker 社群回報、治理投票、完整審計日誌。生產環境安全檢查。</p>
+        <h3 data-i18n="管理與安全">管理與安全</h3>
+        <p data-i18n="管理後台、內容審核、Scam Tracker 社群回報、治理投票、完整審計日誌。生產環境安全檢查。">管理後台、內容審核、Scam Tracker 社群回報、治理投票、完整審計日誌。生產環境安全檢查。</p>
         <div class="feature-tags">
-          <span>審計日誌</span><span>Scam Tracker</span>
+          <span data-i18n="審計日誌">審計日誌</span><span>Scam Tracker</span>
         </div>
       </div>
 
@@ -321,8 +344,8 @@ footer a:hover{color:#0098EA}
 <section class="section" id="demo">
   <div class="container">
     <div class="tag animate">Live Demo</div>
-    <h2 class="section-title animate">實際操作影片</h2>
-    <p class="section-subtitle animate">用自然語言跟 AI 對話——查價格、比較資產、看指數，真實畫面</p>
+    <h2 class="section-title animate" data-i18n="實際操作影片">實際操作影片</h2>
+    <p class="section-subtitle animate" data-i18n="用自然語言跟 AI 對話——查價格、比較資產、看指數，真實畫面">用自然語言跟 AI 對話——查價格、比較資產、看指數，真實畫面</p>
     <div class="demo-grid">
 
       <div class="demo-card animate animate-delay-1">
@@ -330,8 +353,8 @@ footer a:hover{color:#0098EA}
           <source src="demo/scenario1_btc_4k.mp4" type="video/mp4">
           <img src="demo/scenario1_btc.gif" alt="BTC price demo">
         </video>
-        <h3>BTC 即時價格</h3>
-        <p>一句話查加密貨幣即時價格，AI 秒回</p>
+        <h3 data-i18n="BTC 即時價格">BTC 即時價格</h3>
+        <p data-i18n="一句話查加密貨幣即時價格，AI 秒回">一句話查加密貨幣即時價格，AI 秒回</p>
         <span class="demo-query">What's the current price of BTC?</span>
       </div>
 
@@ -340,8 +363,8 @@ footer a:hover{color:#0098EA}
           <source src="demo/scenario2_eth_sol_4k.mp4" type="video/mp4">
           <img src="demo/scenario2_eth_sol.gif" alt="ETH vs SOL comparison demo">
         </video>
-        <h3>多資產比較</h3>
-        <p>ETH 與 SOL 深度技術比較，多工具協作分析</p>
+        <h3 data-i18n="多資產比較">多資產比較</h3>
+        <p data-i18n="ETH 與 SOL 深度技術比較，多工具協作分析">ETH 與 SOL 深度技術比較，多工具協作分析</p>
         <span class="demo-query">Compare ETH and SOL recent performance</span>
       </div>
 
@@ -350,8 +373,8 @@ footer a:hover{color:#0098EA}
           <source src="demo/scenario3_sp500_4k.mp4" type="video/mp4">
           <img src="demo/scenario3_sp500.gif" alt="S&P 500 index demo">
         </video>
-        <h3>指數盤勢</h3>
-        <p>S&amp;P 500 當日走勢，跨市場數據一手掌握</p>
+        <h3 data-i18n="指數盤勢">指數盤勢</h3>
+        <p data-i18n="S&amp;P 500 當日走勢，跨市場數據一手掌握">S&amp;P 500 當日走勢，跨市場數據一手掌握</p>
         <span class="demo-query">What is the S&P 500 index doing today?</span>
       </div>
 
@@ -363,66 +386,66 @@ footer a:hover{color:#0098EA}
 <section class="section ton-section" id="ton">
   <div class="container">
     <div class="tag animate">TON Blockchain</div>
-    <h2 class="section-title animate">100% Web3 — 全部透過 TON</h2>
-    <p class="section-subtitle animate">從登入到付款，從訂閱到打賞，每一筆交易都在鏈上可驗證</p>
+    <h2 class="section-title animate" data-i18n="100% Web3 — 全部透過 TON">100% Web3 — 全部透過 TON</h2>
+    <p class="section-subtitle animate" data-i18n="從登入到付款，從訂閱到打賞，每一筆交易都在鏈上可驗證">從登入到付款，從訂閱到打賞，每一筆交易都在鏈上可驗證</p>
     <div class="ton-visual">
       <div class="animate">
         <div class="ton-flow">
           <div class="ton-step">
             <div class="ton-step-num">1</div>
             <div>
-              <h4>TON Connect 錢包登入</h4>
-              <p>Tonkeeper / MyTonWallet 一鍵授權，ed25519 簽章驗證，15 分鐘 nonce 過期保護</p>
+              <h4 data-i18n="TON Connect 錢包登入">TON Connect 錢包登入</h4>
+              <p data-i18n="Tonkeeper / MyTonWallet 一鍵授權，ed25519 簽章驗證，15 分鐘 nonce 過期保護">Tonkeeper / MyTonWallet 一鍵授權，ed25519 簽章驗證，15 分鐘 nonce 過期保護</p>
             </div>
           </div>
           <div class="ton-step">
             <div class="ton-step-num">2</div>
             <div>
-              <h4>鏈上付款訂單</h4>
-              <p>後端生成唯一 comment 綁定訂單，錢包發送 TON 到收款地址，toncenter API 掃鏈確認</p>
+              <h4 data-i18n="鏈上付款訂單">鏈上付款訂單</h4>
+              <p data-i18n="後端生成唯一 comment 綁定訂單，錢包發送 TON 到收款地址，toncenter API 掃鏈確認">後端生成唯一 comment 綁定訂單，錢包發送 TON 到收款地址，toncenter API 掃鏈確認</p>
             </div>
           </div>
           <div class="ton-step">
             <div class="ton-step-num">3</div>
             <div>
-              <h4>即時開通權限</h4>
-              <p>付款確認後自動升級會員 / 完成打賞，防重複支付機制保障安全</p>
+              <h4 data-i18n="即時開通權限">即時開通權限</h4>
+              <p data-i18n="付款確認後自動升級會員 / 完成打賞，防重複支付機制保障安全">付款確認後自動升級會員 / 完成打賞，防重複支付機制保障安全</p>
             </div>
           </div>
         </div>
         <div class="ton-prices">
           <div class="ton-price-card">
             <div class="amount">0.3 TON</div>
-            <div class="label">PRO 月費</div>
+            <div class="label" data-i18n="PRO 月費">PRO 月費</div>
           </div>
           <div class="ton-price-card">
             <div class="amount">0.1 TON</div>
-            <div class="label">打賞作者</div>
+            <div class="label" data-i18n="打賞作者">打賞作者</div>
           </div>
         </div>
       </div>
       <div class="animate animate-delay-2">
         <div style="background:rgba(0,152,234,.04);border:1px solid rgba(0,152,234,.12);border-radius:20px;padding:32px">
-          <h3 style="font-family:'Sora',sans-serif;font-size:1.3rem;margin-bottom:20px;letter-spacing:-.01em">為什麼選 TON？</h3>
+          <h3 style="font-family:'Sora',sans-serif;font-size:1.3rem;margin-bottom:20px;letter-spacing:-.01em" data-i18n="為什麼選 TON？">為什麼選 TON？</h3>
           <ul style="list-style:none">
             <li style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:12px">
               <span style="color:#0098EA;font-weight:700">→</span>
-              <span><strong>8 億 +</strong> Telegram 用戶，距離錢包只有一鍵之遙</span>
+              <span data-i18n="ton.why.telegram"><strong>8 億 +</strong> Telegram 用戶，距離錢包只有一鍵之遙</span>
             </li>
             <li style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:12px">
               <span style="color:#0098EA;font-weight:700">→</span>
-              <span>手續費遠低於傳統金融，小額支付可行（0.1 TON 打賞）</span>
+              <span data-i18n="手續費遠低於傳統金融，小額支付可行（0.1 TON 打賞）">手續費遠低於傳統金融，小額支付可行（0.1 TON 打賞）</span>
             </li>
             <li style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:12px">
               <span style="color:#0098EA;font-weight:700">→</span>
-              <span>TON 生態缺乏實用的金融 DApp，市場藍海</span>
+              <span data-i18n="TON 生態缺乏實用的金融 DApp，市場藍海">TON 生態缺乏實用的金融 DApp，市場藍海</span>
             </li>
             <li style="padding:12px 0;display:flex;gap:12px">
               <span style="color:#0098EA;font-weight:700">→</span>
-              <span>TON Connect SDK 成熟，開發體驗流暢</span>
+              <span data-i18n="TON Connect SDK 成熟，開發體驗流暢">TON Connect SDK 成熟，開發體驗流暢</span>
             </li>
           </ul>
-          <div style="margin-top:24px;padding:16px;background:rgba(0,152,234,.08);border-radius:10px;font-size:.85rem;color:#8b95a8;text-align:center">
+          <div style="margin-top:24px;padding:16px;background:rgba(0,152,234,.08);border-radius:10px;font-size:.85rem;color:#8b95a8;text-align:center" data-i18n="⚡ 已部署於 Zeabur · 測試網驗證完成 · 隨時可切 Mainnet">
             ⚡ 已部署於 Zeabur · 測試網驗證完成 · 隨時可切 Mainnet
           </div>
         </div>
@@ -435,52 +458,52 @@ footer a:hover{color:#0098EA}
 <section class="section" id="pricing">
   <div class="container">
     <div class="tag animate">Pricing</div>
-    <h2 class="section-title animate" style="text-align:center">選擇你的方案</h2>
-    <p class="section-subtitle animate" style="text-align:center;margin-left:auto;margin-right:auto">所有付款均透過 TON 鏈上完成，不需傳統信用卡</p>
+    <h2 class="section-title animate" style="text-align:center" data-i18n="選擇你的方案">選擇你的方案</h2>
+    <p class="section-subtitle animate" style="text-align:center;margin-left:auto;margin-right:auto" data-i18n="所有付款均透過 TON 鏈上完成，不需傳統信用卡">所有付款均透過 TON 鏈上完成，不需傳統信用卡</p>
     <div class="pricing-grid">
       <div class="pricing-card animate animate-delay-1">
         <div class="pricing-name">Free</div>
         <div class="pricing-price">0 <span>TON</span></div>
-        <div class="pricing-period">永久免費</div>
+        <div class="pricing-period" data-i18n="永久免費">永久免費</div>
         <ul class="pricing-features">
-          <li>閱讀所有文章</li>
-          <li>觀看 AI 分析報告</li>
-          <li>基礎 AI 分析工具（21 種）</li>
-          <li>每日 20 則評論</li>
-          <li>TON 打賞作者</li>
-          <li class="missing">私人訊息</li>
-          <li class="missing">AI 長期記憶</li>
+          <li data-i18n="閱讀所有文章">閱讀所有文章</li>
+          <li data-i18n="觀看 AI 分析報告">觀看 AI 分析報告</li>
+          <li data-i18n="基礎 AI 分析工具（21 種）">基礎 AI 分析工具（21 種）</li>
+          <li data-i18n="每日 20 則評論">每日 20 則評論</li>
+          <li data-i18n="TON 打賞作者">TON 打賞作者</li>
+          <li class="missing" data-i18n="私人訊息">私人訊息</li>
+          <li class="missing" data-i18n="AI 長期記憶">AI 長期記憶</li>
         </ul>
-        <a href="https://cryptomind-ton.zeabur.app" class="btn-secondary" style="width:100%;justify-content:center" target="_blank">免費開始</a>
+        <a href="https://cryptomind-ton.zeabur.app" class="btn-secondary" style="width:100%;justify-content:center" target="_blank" data-i18n="免費開始">免費開始</a>
       </div>
 
       <div class="pricing-card featured animate animate-delay-2">
         <div class="pricing-name">PRO Monthly</div>
         <div class="pricing-price">0.3 <span>TON</span></div>
-        <div class="pricing-period">每月 / 約 $0.9 USD</div>
+        <div class="pricing-period" data-i18n="每月 / 約 $0.9 USD">每月 / 約 $0.9 USD</div>
         <ul class="pricing-features">
-          <li>無限評論 & 高級 AI 工具</li>
-          <li>高級 AI 分析工具</li>
-          <li>AI 長期記憶</li>
-          <li>私人即時訊息</li>
-          <li>自訂 System Prompt</li>
-          <li>PRO 身份徽章</li>
-          <li>搶先體驗新功能</li>
+          <li data-i18n="無限評論 & 高級 AI 工具">無限評論 & 高級 AI 工具</li>
+          <li data-i18n="高級 AI 分析工具">高級 AI 分析工具</li>
+          <li data-i18n="AI 長期記憶">AI 長期記憶</li>
+          <li data-i18n="私人即時訊息">私人即時訊息</li>
+          <li data-i18n="自訂 System Prompt">自訂 System Prompt</li>
+          <li data-i18n="PRO 身份徽章">PRO 身份徽章</li>
+          <li data-i18n="搶先體驗新功能">搶先體驗新功能</li>
         </ul>
-        <a href="https://cryptomind-ton.zeabur.app" class="btn-primary" style="width:100%;justify-content:center" target="_blank">訂閱 PRO</a>
+        <a href="https://cryptomind-ton.zeabur.app" class="btn-primary" style="width:100%;justify-content:center" target="_blank" data-i18n="訂閱 PRO">訂閱 PRO</a>
       </div>
 
       <div class="pricing-card animate animate-delay-3">
         <div class="pricing-name">PRO Yearly</div>
         <div class="pricing-price">3.0 <span>TON</span></div>
-        <div class="pricing-period">每年 / 約 $9 USD（省 2 個月）</div>
+        <div class="pricing-period" data-i18n="每年 / 約 $9 USD（省 2 個月）">每年 / 約 $9 USD（省 2 個月）</div>
         <ul class="pricing-features">
-          <li>所有 PRO 月費權益</li>
-          <li>年費約等於 10 個月價格</li>
-          <li>相當於免費獲得 2 個月</li>
-          <li>優先技術支援</li>
+          <li data-i18n="所有 PRO 月費權益">所有 PRO 月費權益</li>
+          <li data-i18n="年費約等於 10 個月價格">年費約等於 10 個月價格</li>
+          <li data-i18n="相當於免費獲得 2 個月">相當於免費獲得 2 個月</li>
+          <li data-i18n="優先技術支援">優先技術支援</li>
         </ul>
-        <a href="https://cryptomind-ton.zeabur.app" class="btn-secondary" style="width:100%;justify-content:center" target="_blank">訂閱年費</a>
+        <a href="https://cryptomind-ton.zeabur.app" class="btn-secondary" style="width:100%;justify-content:center" target="_blank" data-i18n="訂閱年費">訂閱年費</a>
       </div>
     </div>
   </div>
@@ -490,28 +513,28 @@ footer a:hover{color:#0098EA}
 <section class="section" style="background:rgba(0,152,234,.015);border-top:1px solid rgba(0,152,234,.08);border-bottom:1px solid rgba(0,152,234,.08)">
   <div class="container">
     <div class="tag animate">Roadmap</div>
-    <h2 class="section-title animate">下一步規劃</h2>
-    <p class="section-subtitle animate">從 MVP 到生態系，我們的階段性目標</p>
+    <h2 class="section-title animate" data-i18n="下一步規劃">下一步規劃</h2>
+    <p class="section-subtitle animate" data-i18n="從 MVP 到生態系，我們的階段性目標">從 MVP 到生態系，我們的階段性目標</p>
     <div class="roadmap">
       <div class="roadmap-item animate animate-delay-1">
-        <span class="roadmap-dot done"></span><span class="phase">Phase 1 ✅ 已完成</span>
-        <h4>TON 遷移 & MVP 上線</h4>
-        <p>Pi → TON 完整遷移，TON Connect 登入 + 付款，PRO 訂閱、論壇、AI 分析核心功能上線</p>
+        <span class="roadmap-dot done"></span><span class="phase" data-i18n="Phase 1 ✅ 已完成">Phase 1 ✅ 已完成</span>
+        <h4 data-i18n="TON 遷移 & MVP 上線">TON 遷移 & MVP 上線</h4>
+        <p data-i18n="Pi → TON 完整遷移，TON Connect 登入 + 付款，PRO 訂閱、論壇、AI 分析核心功能上線">Pi → TON 完整遷移，TON Connect 登入 + 付款，PRO 訂閱、論壇、AI 分析核心功能上線</p>
       </div>
       <div class="roadmap-item animate animate-delay-2">
-        <span class="roadmap-dot current"></span><span class="phase">Phase 2 🔄 進行中</span>
-        <h4>Mainnet 切換 & 用戶增長</h4>
-        <p>切換 TON Mainnet，優化效能，用戶 onboarding 流程，社群建立</p>
+        <span class="roadmap-dot current"></span><span class="phase" data-i18n="Phase 2 🔄 進行中">Phase 2 🔄 進行中</span>
+        <h4 data-i18n="Mainnet 切換 & 用戶增長">Mainnet 切換 & 用戶增長</h4>
+        <p data-i18n="切換 TON Mainnet，優化效能，用戶 onboarding 流程，社群建立">切換 TON Mainnet，優化效能，用戶 onboarding 流程，社群建立</p>
       </div>
       <div class="roadmap-item animate animate-delay-3">
-        <span class="roadmap-dot next"></span><span class="phase">Phase 3 📋 規劃中</span>
-        <h4>付費專欄 & AI API</h4>
-        <p>開放付費分析專欄、第三方 AI API 接入、Telegram Mini App 整合</p>
+        <span class="roadmap-dot next"></span><span class="phase" data-i18n="Phase 3 📋 規劃中">Phase 3 📋 規劃中</span>
+        <h4 data-i18n="付費專欄 & AI API">付費專欄 & AI API</h4>
+        <p data-i18n="開放付費分析專欄、第三方 AI API 接入、Telegram Mini App 整合">開放付費分析專欄、第三方 AI API 接入、Telegram Mini App 整合</p>
       </div>
       <div class="roadmap-item animate animate-delay-4">
-        <span class="roadmap-dot next"></span><span class="phase">Phase 4 📋 規劃中</span>
-        <h4>社群治理 & 生態擴張</h4>
-        <p>DAO 治理、更多市場覆蓋、行動端 App、跨鏈整合</p>
+        <span class="roadmap-dot next"></span><span class="phase" data-i18n="Phase 4 📋 規劃中">Phase 4 📋 規劃中</span>
+        <h4 data-i18n="社群治理 & 生態擴張">社群治理 & 生態擴張</h4>
+        <p data-i18n="DAO 治理、更多市場覆蓋、行動端 App、跨鏈整合">DAO 治理、更多市場覆蓋、行動端 App、跨鏈整合</p>
       </div>
     </div>
   </div>
@@ -521,39 +544,40 @@ footer a:hover{color:#0098EA}
 <section class="section support-section" id="support">
   <div class="container">
     <div class="tag animate">Support Us</div>
-    <h2 class="section-title animate" style="text-align:center">支持 CryptoMind</h2>
-    <p class="section-subtitle animate" style="text-align:center;margin-left:auto;margin-right:auto">
+    <h2 class="section-title animate" style="text-align:center" data-i18n="支持 CryptoMind">支持 CryptoMind</h2>
+    <p class="section-subtitle animate" style="text-align:center;margin-left:auto;margin-right:auto" data-i18n="我們是獨立開發團隊，您的每一份支持都直接投入伺服器維運和功能開發。
+      如果您喜歡這個項目，歡迎透過以下方式支持：">
       我們是獨立開發團隊，您的每一份支持都直接投入伺服器維運和功能開發。
       如果您喜歡這個項目，歡迎透過以下方式支持：
     </p>
     <div class="donation-box animate">
-      <h3>☕ 請我們喝杯咖啡</h3>
-      <p>捐款不是義務，但每一份心意都能讓我們走得更遠。</p>
+      <h3 data-i18n="☕ 請我們喝杯咖啡">☕ 請我們喝杯咖啡</h3>
+      <p data-i18n="捐款不是義務，但每一份心意都能讓我們走得更遠。">捐款不是義務，但每一份心意都能讓我們走得更遠。</p>
 
       <div class="wallet-group">
-        <label>📱 TON / TON USDT（推薦）</label>
+        <label data-i18n="📱 TON / TON USDT（推薦）">📱 TON / TON USDT（推薦）</label>
         <div class="wallet-address" onclick="copyAddress(this)">
           <span>UQDvjDhEZ128EktbSBrK4CWrw1xTTbx4ojlZ-rF2OOS2H6Db</span>
-          <button class="copy-btn" onclick="event.stopPropagation();copyAddress(this.parentElement)">複製</button>
+          <button class="copy-btn" onclick="event.stopPropagation();copyAddress(this.parentElement)" data-i18n="複製">複製</button>
         </div>
-        <div class="wallet-note">透過 Tonkeeper 直接發送 TON 或 USDT（TON 主網）</div>
+        <div class="wallet-note" data-i18n="透過 Tonkeeper 直接發送 TON 或 USDT（TON 主網）">透過 Tonkeeper 直接發送 TON 或 USDT（TON 主網）</div>
       </div>
 
       <div class="wallet-group">
         <label>💳 USDT（TRC-20）</label>
         <div class="wallet-address" onclick="copyAddress(this)">
           <span>TKfFita2A9DkuhvpioDFJ7KcML2X2nA66f</span>
-          <button class="copy-btn" onclick="event.stopPropagation();copyAddress(this.parentElement)">複製</button>
+          <button class="copy-btn" onclick="event.stopPropagation();copyAddress(this.parentElement)" data-i18n="複製">複製</button>
         </div>
-        <div class="wallet-note">TRON 網絡 USDT</div>
+        <div class="wallet-note" data-i18n="TRON 網絡 USDT">TRON 網絡 USDT</div>
       </div>
 
-      <a href="https://app.tonkeeper.com/donate/?amounts[]=1&amounts[]=5&amounts[]=10&amounts[]=50&text=Support%20CryptoMind" class="ton-donation-link" target="_blank">
+      <a href="https://app.tonkeeper.com/donate/?amounts[]=1&amounts[]=5&amounts[]=10&amounts[]=50&text=Support%20CryptoMind" class="ton-donation-link" target="_blank" data-i18n="⚡ 一鍵 TON 捐款（Tonkeeper）">
         ⚡ 一鍵 TON 捐款（Tonkeeper）
       </a>
 
       <div style="margin-top:24px;padding:16px;background:rgba(0,152,234,.06);border-radius:10px;text-align:center;font-size:.85rem;color:#8b95a8">
-        💎 或直接訂閱 <a href="https://cryptomind-ton.zeabur.app" style="color:#0098EA">PRO 會員</a>，獲得完整功能同時支持我們
+        💎 或直接訂閱 <a href="https://cryptomind-ton.zeabur.app" style="color:#0098EA" data-i18n="PRO 會員">PRO 會員</a>，獲得完整功能同時支持我們
       </div>
     </div>
   </div>
@@ -562,14 +586,14 @@ footer a:hover{color:#0098EA}
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="footer-links">
-    <a href="https://cryptomind-ton.zeabur.app" target="_blank">開啟 App</a>
+    <a href="https://cryptomind-ton.zeabur.app" target="_blank" data-i18n="開啟 App">開啟 App</a>
     <a href="https://github.com/aaaa47080/stock_agent" target="_blank">GitHub</a>
-    <a href="#story">關於</a>
-    <a href="#features">功能</a>
-    <a href="#pricing">方案</a>
-    <a href="#support">支持</a>
+    <a href="#story" data-i18n="關於">關於</a>
+    <a href="#features" data-i18n="功能">功能</a>
+    <a href="#pricing" data-i18n="方案">方案</a>
+    <a href="#support" data-i18n="支持">支持</a>
   </div>
-  <p>© 2026 CryptoMind · 獨立開發，不屬於任何機構</p>
+  <p data-i18n="© 2026 CryptoMind · 獨立開發，不屬於任何機構">© 2026 CryptoMind · 獨立開發，不屬於任何機構</p>
   <p style="margin-top:8px;font-size:.75rem">Built on TON · Powered by 4 independent developers</p>
 </footer>
 
@@ -602,6 +626,84 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
 document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+</script>
+
+<!-- ===== I18N ENGINE ===== -->
+<script src="i18n.js"></script>
+<script>
+(function () {
+  'use strict';
+  const SUPPORTED = ['zh-TW', 'en', 'zh-CN', 'ru'];
+  const FLAGS = { 'zh-TW': '🇹🇼', en: '🇺🇸', 'zh-CN': '🇨🇳', ru: '🇷🇺' };
+  const TITLES = {
+    'zh-TW': 'CryptoMind — AI 驅動的加密分析 × TON 社群生態',
+    en: 'CryptoMind — AI-Powered Crypto Analysis × TON Ecosystem',
+    'zh-CN': 'CryptoMind — AI 驱动的加密分析 × TON 社群生态',
+    ru: 'CryptoMind — ИИ-аналитика криптовалют × Экосистема TON',
+  };
+
+  function detectLang() {
+    try {
+      const saved = localStorage.getItem('landing-lang');
+      if (saved && SUPPORTED.includes(saved)) return saved;
+    } catch (e) { /* ignore */ }
+    // 瀏覽器語言自動偵測
+    const nav = (navigator.language || navigator.languages?.[0] || '').toLowerCase();
+    if (nav.startsWith('zh')) return nav.includes('cn') || nav.includes('hans') ? 'zh-CN' : 'zh-TW';
+    if (nav.startsWith('ru')) return 'ru';
+    if (nav.startsWith('en')) return 'en';
+    return 'zh-TW';
+  }
+
+  function applyLang(lang) {
+    const dict = I18N_DICT[lang] || {};
+    // 套用到所有 data-i18n 元素
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      const val = dict[key];
+      if (val !== undefined) {
+        el.innerHTML = val;
+      }
+      // 有 data-i18n-placeholder 的額外處理（本頁無，保留擴充）
+    });
+    // 同步 html lang + title + 切換器狀態
+    document.documentElement.lang = lang;
+    document.title = TITLES[lang] || TITLES['zh-TW'];
+    const cur = document.getElementById('lang-current');
+    if (cur) cur.textContent = FLAGS[lang] || '🌐';
+    document.querySelectorAll('#lang-menu button').forEach(b => {
+      b.classList.toggle('active', b.dataset.lang === lang);
+    });
+    try { localStorage.setItem('landing-lang', lang); } catch (e) { /* ignore */ }
+    // 重新觸發滾動動畫（翻譯後元素仍應顯示）
+    document.querySelectorAll('.animate').forEach(el => {
+      if (el.classList.contains('visible')) return;
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('visible');
+    });
+  }
+
+  // 切換器互動
+  document.addEventListener('DOMContentLoaded', () => {
+    applyLang(detectLang());
+    const btn = document.getElementById('lang-btn');
+    const menu = document.getElementById('lang-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menu.classList.toggle('open');
+      });
+      document.addEventListener('click', () => menu.classList.remove('open'));
+      menu.addEventListener('click', (e) => {
+        const b = e.target.closest('button[data-lang]');
+        if (b) {
+          applyLang(b.dataset.lang);
+          menu.classList.remove('open');
+        }
+      });
+    }
+  });
+})();
 </script>
 
 </body>
