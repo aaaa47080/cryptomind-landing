@@ -719,8 +719,11 @@ document.querySelectorAll('.animate').forEach(el => observer.observe(el));
       const val = dict[key];
       if (val !== undefined) {
         el.innerHTML = val;
+      } else if (el.dataset.i18nOriginal !== undefined) {
+        // 該語言無翻譯（zh-TW 使用 HTML 原文）→ 還原首次載入的原文，
+        // 避免「切到 en 再切回 zh-TW 仍是英文」的 bug。
+        el.innerHTML = el.dataset.i18nOriginal;
       }
-      // 有 data-i18n-placeholder 的額外處理（本頁無，保留擴充）
     });
     // 同步 html lang + title + 切換器狀態
     document.documentElement.lang = lang;
@@ -741,6 +744,11 @@ document.querySelectorAll('.animate').forEach(el => observer.observe(el));
 
   // 切換器互動
   document.addEventListener('DOMContentLoaded', () => {
+    // 首次載入：記錄每個 data-i18n 元素的原文（HTML），
+    // 供 zh-TW（無字典翻譯）切回時還原。
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      el.dataset.i18nOriginal = el.innerHTML;
+    });
     applyLang(detectLang());
     const btn = document.getElementById('lang-btn');
     const menu = document.getElementById('lang-menu');
