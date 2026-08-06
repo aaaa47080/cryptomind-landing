@@ -95,7 +95,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;background
 .demo-query{display:inline-block;margin-top:10px;padding:4px 12px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#00d4ff}
 
 /* ===== TEAM ===== */
-.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.team-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
 .team-card{background:rgba(255,255,255,.02);border:1px solid rgba(0,152,234,.1);border-radius:16px;padding:32px 28px;text-align:center;transition:all .4s;position:relative;overflow:hidden}
 .team-card:hover{background:rgba(0,152,234,.05);border-color:rgba(0,152,234,.3);transform:translateY(-4px)}
 .team-avatar{width:120px;height:120px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:2rem;font-weight:700;color:#fff;background:linear-gradient(135deg,#0098EA,#00d4ff);box-shadow:0 8px 24px rgba(0,152,234,.3)}
@@ -183,6 +183,7 @@ footer a:hover{color:#0098EA}
   .hero{padding-top:100px}
   .stats-row{grid-template-columns:1fr}
   .ton-prices{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
   .section{padding:60px 0}
 }
 
@@ -487,6 +488,13 @@ footer a:hover{color:#0098EA}
       </div>
 
       <div class="team-card animate animate-delay-2">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#0098EA,#4ade80)">蔡</div>
+        <h3 data-i18n="team.tsaiyuxu.name">蔡昀旴 Yun-Hsu Tsai</h3>
+        <div class="team-role" data-i18n="team.tsaiyuxu.role">顧問 Advisor</div>
+        <p data-i18n="team.tsaiyuxu.bio">提供參考意見與建議，不參與技術設計</p>
+      </div>
+
+      <div class="team-card animate animate-delay-3">
         <div class="team-avatar" style="background:linear-gradient(135deg,#00d4ff,#4ade80)">賴</div>
         <h3 data-i18n="team.hungyu.name">賴弘育 Hung-Yu Lai</h3>
         <div class="team-role" data-i18n="team.hungyu.role">Intelligent Data Retrieval</div>
@@ -496,7 +504,7 @@ footer a:hover{color:#0098EA}
         </div>
       </div>
 
-      <div class="team-card animate animate-delay-3">
+      <div class="team-card animate animate-delay-4">
         <img class="team-avatar" src="img/team-shih.jpg" alt="Po-Chun Shih">
         <h3 data-i18n="team.shih.name">施柏均 Po-Chun Shih</h3>
         <div class="team-role" data-i18n="team.shih.role">Backend &amp; Infra Engineer</div>
@@ -504,13 +512,6 @@ footer a:hover{color:#0098EA}
         <div class="team-links">
           <a href="https://www.linkedin.com/in/%E6%9F%8F%E5%9D%87-%E6%96%BD-a37446306/" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
-      </div>
-
-      <div class="team-card animate animate-delay-4">
-        <div class="team-avatar" style="background:linear-gradient(135deg,#0098EA,#4ade80)">蔡</div>
-        <h3 data-i18n="team.tsaiyuxu.name">蔡昀旴 Yun-Hsu Tsai</h3>
-        <div class="team-role" data-i18n="team.tsaiyuxu.role">顧問 Advisor</div>
-        <p data-i18n="team.tsaiyuxu.bio">提供參考意見與建議，不參與技術設計</p>
       </div>
 
     </div>
