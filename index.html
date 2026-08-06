@@ -99,6 +99,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;background
 .team-card{background:rgba(255,255,255,.02);border:1px solid rgba(0,152,234,.1);border-radius:16px;padding:32px 28px;text-align:center;transition:all .4s;position:relative;overflow:hidden}
 .team-card:hover{background:rgba(0,152,234,.05);border-color:rgba(0,152,234,.3);transform:translateY(-4px)}
 .team-avatar{width:88px;height:88px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:2rem;font-weight:700;color:#fff;background:linear-gradient(135deg,#0098EA,#00d4ff);box-shadow:0 8px 24px rgba(0,152,234,.3)}
+img.team-avatar{object-fit:cover;border:2px solid rgba(0,152,234,.3);background:#0a0e1a}
 .team-card h3{font-family:'Sora',sans-serif;font-size:1.15rem;font-weight:600;margin-bottom:4px;letter-spacing:-.01em}
 .team-role{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#00d4ff;margin-bottom:12px;font-weight:600}
 .team-card p{font-size:.88rem;color:#8b95a8;line-height:1.7;margin-bottom:16px}
@@ -476,7 +477,7 @@ footer a:hover{color:#0098EA}
     <div class="team-grid">
 
       <div class="team-card animate animate-delay-1">
-        <div class="team-avatar" style="background:linear-gradient(135deg,#0098EA,#00d4ff)">D</div>
+        <img class="team-avatar" src="img/team-danny.jpg" alt="Danny Chen">
         <h3 data-i18n="team.danny.name">陳鈺澔 Danny</h3>
         <div class="team-role" data-i18n="team.danny.role">LLM &amp; AI-Agent Architect</div>
         <p data-i18n="team.danny.bio">LLM 應用架構、AI Agent 工作流設計、信任層架構、Prompt Engineering</p>
