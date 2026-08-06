@@ -75,6 +75,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;background
 .feature-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
 .feature-tags span{padding:3px 10px;background:rgba(0,152,234,.08);border-radius:100px;font-size:.72rem;color:#00d4ff}
 
+/* ===== LIVE DEMO ===== */
+.demo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:28px}
+.demo-card{background:rgba(255,255,255,.02);border:1px solid rgba(0,152,234,.1);border-radius:16px;padding:20px;transition:all .4s;position:relative;overflow:hidden}
+.demo-card:hover{background:rgba(0,152,234,.05);border-color:rgba(0,152,234,.3);transform:translateY(-4px)}
+.demo-card video,.demo-card img{width:100%;border-radius:10px;border:1px solid rgba(0,152,234,.15);aspect-ratio:16/9;object-fit:cover;background:#0a0e1a}
+.demo-card h3{font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:600;margin:14px 0 8px;letter-spacing:-.01em}
+.demo-card p{font-size:.85rem;color:#8b95a8;line-height:1.6}
+.demo-query{display:inline-block;margin-top:10px;padding:4px 12px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#00d4ff}
+
 /* ===== TON SECTION ===== */
 .ton-section{background:linear-gradient(180deg,#0a0e1a 0%,rgba(0,152,234,.04) 50%,#0a0e1a 100%);border-top:1px solid rgba(0,152,234,.1);border-bottom:1px solid rgba(0,152,234,.1)}
 .ton-visual{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
@@ -169,6 +178,7 @@ footer a:hover{color:#0098EA}
   <ul class="nav-links">
     <li><a href="#story">關於</a></li>
     <li><a href="#features">功能</a></li>
+    <li><a href="#demo">Demo</a></li>
     <li><a href="#ton">TON</a></li>
     <li><a href="#pricing">方案</a></li>
     <li><a href="#support">支持</a></li>
@@ -301,6 +311,48 @@ footer a:hover{color:#0098EA}
         <div class="feature-tags">
           <span>審計日誌</span><span>Scam Tracker</span>
         </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== LIVE DEMO ===== -->
+<section class="section" id="demo">
+  <div class="container">
+    <div class="tag animate">Live Demo</div>
+    <h2 class="section-title animate">實際操作影片</h2>
+    <p class="section-subtitle animate">用自然語言跟 AI 對話——查價格、比較資產、看指數，真實畫面</p>
+    <div class="demo-grid">
+
+      <div class="demo-card animate animate-delay-1">
+        <video autoplay muted loop playsinline preload="none" poster="demo/scenario1_btc.gif">
+          <source src="demo/scenario1_btc_4k.mp4" type="video/mp4">
+          <img src="demo/scenario1_btc.gif" alt="BTC price demo">
+        </video>
+        <h3>BTC 即時價格</h3>
+        <p>一句話查加密貨幣即時價格，AI 秒回</p>
+        <span class="demo-query">What's the current price of BTC?</span>
+      </div>
+
+      <div class="demo-card animate animate-delay-2">
+        <video autoplay muted loop playsinline preload="none" poster="demo/scenario2_eth_sol.gif">
+          <source src="demo/scenario2_eth_sol_4k.mp4" type="video/mp4">
+          <img src="demo/scenario2_eth_sol.gif" alt="ETH vs SOL comparison demo">
+        </video>
+        <h3>多資產比較</h3>
+        <p>ETH 與 SOL 深度技術比較，多工具協作分析</p>
+        <span class="demo-query">Compare ETH and SOL recent performance</span>
+      </div>
+
+      <div class="demo-card animate animate-delay-3">
+        <video autoplay muted loop playsinline preload="none" poster="demo/scenario3_sp500.gif">
+          <source src="demo/scenario3_sp500_4k.mp4" type="video/mp4">
+          <img src="demo/scenario3_sp500.gif" alt="S&P 500 index demo">
+        </video>
+        <h3>指數盤勢</h3>
+        <p>S&amp;P 500 當日走勢，跨市場數據一手掌握</p>
+        <span class="demo-query">What is the S&P 500 index doing today?</span>
       </div>
 
     </div>
